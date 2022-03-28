@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Collaborator from 'App/Models/Collaborator'
-import Companie from 'App/Models/Companie'
 
 export default class CollaboratorsController {
   public async index({}: HttpContextContract) {
@@ -27,7 +26,11 @@ export default class CollaboratorsController {
   }
 
   public async show({ params }: HttpContextContract) {
-    const collaborator = await Collaborator.findOrFail(params.id)
+    // const collaborator = await Collaborator.findOrFail(params.id)
+    const collaborator = await Collaborator.query()
+      .select()
+      .where({ id: params.id })
+      .preload('id_companie')
 
     return collaborator
   }

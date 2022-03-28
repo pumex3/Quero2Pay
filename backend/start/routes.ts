@@ -10,3 +10,6 @@ Route.delete('/companies/:id', 'CompaniesController.destroy')
 //Routes Collaboratores
 Route.post('/collaborators', 'CollaboratorsController.create')
 Route.get('/collaborators', 'CollaboratorsController.index')
+Route.get('/collaborators/:id', 'CollaboratorsController.show')
+Route.put('/collaborators/:id', 'CollaboratorsController.update')
+Route.delete('/collaborators/:id', 'CollaboratorsController.destroy')

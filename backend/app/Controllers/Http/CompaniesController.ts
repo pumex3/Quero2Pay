@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
 import Companies from 'App/Models/Companie'
-import Collaborator from 'App/Models/Collaborator'
+import axios from 'axios'
 
 export default class CompaniesController {
   public async index({}: HttpContextContract) {
@@ -27,16 +26,17 @@ export default class CompaniesController {
       'ddd',
       'siafi',
     ])
+
     const companie = await Companies.create(data)
 
     return companie
   }
 
   public async show({ params }: HttpContextContract) {
-    const companie = await Companies.findOrFail(params.id)
-    const data = await Companies.query().select().groupBy('id').preload('collaborator')
+    //const companie = await Companies.findOrFail(params.id)
+    const data = await Companies.query().select().where({ id: params.id }).preload('collaborator')
 
-    return companie
+    return data
   }
 
   public async update({ request, params }: HttpContextContract) {
